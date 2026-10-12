@@ -1,32 +1,60 @@
-# Student Record Manager
+import re
 
-## Description
+FILE_NAME = "students.txt"
 
-Student Record Manager is a Python-based application used to add and view student records.
+def add_student():
+    try:
+        name = input("Enter student name: ")
+        email = input("Enter student email: ")
 
-## Features
+        if not re.match(r"^[\w.-]+@[\w.-]+\.\w+$", email):
+            print("Invalid email address!")
+            return
 
-- Add Student
-- Validate Email using Regex
-- Save Student Data to File
-- Read Student Data
-- Handle Invalid Input using Exceptions
+        with open(FILE_NAME, "a") as file:
+            file.write(f"{name},{email}\n")
 
-## Technologies Used
+        print("Student added successfully!")
 
-- Python
-- Regular Expressions
-- File Handling
-- Exception Handling
+    except Exception as error:
+        print("Error:", error)
 
-## How to Run
 
-Run the following command:
+def view_students():
+    try:
+        with open(FILE_NAME, "r") as file:
+            records = file.readlines()
 
-python student_manager.py
+        if not records:
+            print("No student records found.")
+            return
 
-## Project Files
+        print("\nStudent Records:")
+        for record in records:
+            print(record.strip())
 
-- `student_manager.py` - Main Python program
-- `students.txt` - Stores student records
-- `README.md` - Project documentation
+    except FileNotFoundError:
+        print("No records found yet. Add a student first.")
+
+
+while True:
+    print("\n===== STUDENT RECORD MANAGER =====")
+    print("1. Add Student")
+    print("2. View Students")
+    print("3. Exit")
+
+    try:
+        choice = input("Enter your choice: ")
+
+        if choice == "1":
+            add_student()
+        elif choice == "2":
+            view_students()
+        elif choice == "3":
+            print("Thank you!")
+            break
+        else:
+            print("Invalid choice. Enter 1, 2, or 3.")
+
+    except Exception as error:
+        print("Error:", error)

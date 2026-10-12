@@ -1,60 +1,32 @@
-import re
+# Student Record Manager
 
-FILE_NAME = "students.txt"
+## Description
 
-def add_student():
-    try:
-        name = input("Enter student name: ")
-        email = input("Enter student email: ")
+Student Record Manager is a Python-based application used to add and view student records.
 
-        if not re.match(r"^[\w.-]+@[\w.-]+\.\w+$", email):
-            print("Invalid email address!")
-            return
+## Features
 
-        with open(FILE_NAME, "a") as file:
-            file.write(f"{name},{email}\n")
+- Add Student
+- Validate Email using Regex
+- Save Student Data to File
+- Read Student Data
+- Handle Invalid Input using Exceptions
 
-        print("Student added successfully!")
+## Technologies Used
 
-    except Exception as error:
-        print("Error:", error)
+- Python
+- Regular Expressions
+- File Handling
+- Exception Handling
 
+## How to Run
 
-def view_students():
-    try:
-        with open(FILE_NAME, "r") as file:
-            records = file.readlines()
+Run the following command:
 
-        if not records:
-            print("No student records found.")
-            return
+python student_manager.py
 
-        print("\nStudent Records:")
-        for record in records:
-            print(record.strip())
+## Project Files
 
-    except FileNotFoundError:
-        print("No records found yet. Add a student first.")
-
-
-while True:
-    print("\n===== STUDENT RECORD MANAGER =====")
-    print("1. Add Student")
-    print("2. View Students")
-    print("3. Exit")
-
-    try:
-        choice = input("Enter your choice: ")
-
-        if choice == "1":
-            add_student()
-        elif choice == "2":
-            view_students()
-        elif choice == "3":
-            print("Thank you!")
-            break
-        else:
-            print("Invalid choice. Enter 1, 2, or 3.")
-
-    except Exception as error:
-        print("Error:", error)
+- `student_manager.py` - Main Python program
+- `students.txt` - Stores student records
+- `README.md` - Project documentation
